@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export const LoginPage = () => {
   return (
     <>
@@ -47,6 +49,18 @@ export const LoginPage = () => {
           />
         </div>
       </form>
+      <nav className="lg:flex lg:justify-between">
+        <Link
+          className="block text-center my-5 text-slate-500 uppercase text-sm"
+          to="register">
+          Don't have an account? Sign up now
+        </Link>
+        <Link
+          className="block text-center my-5 text-slate-500 uppercase text-sm"
+          to="/forgot-password">
+          Forgot my password
+        </Link>
+      </nav>
     </>
   )
 }
