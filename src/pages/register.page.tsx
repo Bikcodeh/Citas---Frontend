@@ -59,7 +59,7 @@ export const RegisterPage = () => {
             id="password"
             type="password"
             placeholder="********"
-            className="w-full mt-3 mb-8 p-3 border rounded-xl bg-gray-50"
+            className="w-full mt-3 mb-2 p-3 border rounded-xl bg-gray-50"
           />
         </div>
         <div className="my-5">
@@ -78,14 +78,14 @@ export const RegisterPage = () => {
             id="confirm_password"
             type="password"
             placeholder="********"
-            className="w-full mt-3 mb-8 p-3 border rounded-xl bg-gray-50"
+            className="w-full mt-3 mb-2 p-3 border rounded-xl bg-gray-50"
           />
-          <input
+        </div>
+        <input
             type="submit"
             value="Sign up"
             className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
           />
-        </div>
       </form>
       <nav className="lg:flex lg:justify-between">
         <Link
