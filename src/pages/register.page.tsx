@@ -1,13 +1,10 @@
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-
-interface RegisterFormData {
-  name?: string;
-  email?: string;
-  password?: string;
-  confirm_password?: string;
-}
+import { RegisterFormData } from "../interfaces";
+import { useRegisterUser } from "../hooks/useRegisterUser";
+import { Button } from '@chakra-ui/react'
+import AlertMessage from "../components/AlertMessage";
 
 const initialData: RegisterFormData = {
   name: '',
@@ -36,13 +33,23 @@ const formSchema = Yup.object().shape({
 
 export const RegisterPage = () => {
 
+  const { error, isSuccess, isLoading, data, isError, mutate: registerMutate } = useRegisterUser();
+
   const handleSubmit = (formData: RegisterFormData) => {
-    console.log(formData);
+    setTimeout(() => {
+      registerMutate(formData);
+    }, 1800);
   }
 
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Sign up now and manage your <span className="text-slate-700">projects</span></h1>
+      {
+        isError && (<AlertMessage status="error" message={(error as Error).message} title="" />)
+      }
+      {
+        isSuccess && (<AlertMessage status="success" message={data.data.message} title="" />)
+      }
       <Formik
         initialValues={initialData}
         validationSchema={formSchema}
@@ -153,12 +160,17 @@ export const RegisterPage = () => {
                 className="text-red-700"
               />
             </div>
-            <input
+            <Button
+              isLoading={isLoading && isSubmitting}
+              loadingText='Submitting'
+              variant='solid'
               type="submit"
-              value="Sign up"
               disabled={isSubmitting}
-              className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-            />
+              colorScheme='blue'
+              fontWeight='bold'
+              className="w-full py-6 uppercase rounded hover:cursor-pointer transition-colors"
+            >Sign Up
+            </Button>
           </Form>
         )}
       </Formik>
