@@ -56,9 +56,10 @@ export const RegisterPage = () => {
         validateOnBlur
         initialValues={initialData}
         validationSchema={formSchema}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           handleSubmit(values);
           setSubmitting(false);
+          resetForm();
         }}
       >
         {({ isSubmitting, errors }) => (
