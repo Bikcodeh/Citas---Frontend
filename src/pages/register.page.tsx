@@ -5,6 +5,7 @@ import { RegisterFormData } from "../interfaces";
 import { useRegisterUser } from "../hooks/useRegisterUser";
 import { Button } from '@chakra-ui/react'
 import AlertMessage from "../components/AlertMessage";
+import { getErrorMessage } from "../utils";
 
 const initialData: RegisterFormData = {
   name: '',
@@ -45,12 +46,14 @@ export const RegisterPage = () => {
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Sign up now and manage your <span className="text-slate-700">projects</span></h1>
       {
-        isError && (<AlertMessage status="error" message={(error as Error).message} title="" />)
+        isError && (<AlertMessage status="error" message={getErrorMessage(error)} title="" />)
       }
       {
         isSuccess && (<AlertMessage status="success" message={data.data.message} title="" />)
       }
       <Formik
+        validateOnChange
+        validateOnBlur
         initialValues={initialData}
         validationSchema={formSchema}
         onSubmit={(values, { setSubmitting }) => {
