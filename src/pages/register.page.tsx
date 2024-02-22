@@ -49,7 +49,7 @@ export const RegisterPage = () => {
         isError && (<AlertMessage status="error" message={getErrorMessage(error)} title="" />)
       }
       {
-        isSuccess && (<AlertMessage status="success" message={data.data.message} title="" />)
+        isSuccess && (<AlertMessage status="success" message={data.data.msg} title="" />)
       }
       <Formik
         validateOnChange

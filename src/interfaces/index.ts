@@ -6,5 +6,6 @@ export interface RegisterFormData {
 }
 
 export interface ApiResponse {
-    message: string;
+    msg: string;
+    status?: string;
 }
