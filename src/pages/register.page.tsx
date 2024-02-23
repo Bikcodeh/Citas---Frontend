@@ -81,7 +81,7 @@ export const RegisterPage = () => {
                 name="name"
                 type="text"
                 placeholder="John Doe"
-                className={`w-full mt-3 p-3 border rounded-xl bg-gray-50 ${errors.name ? 'border-red-700' : ''} `}
+                className={`form-field ${errors.name ? 'border-red-700' : ''} `}
               />
               <ErrorMessage
                 name="name"
@@ -106,7 +106,7 @@ export const RegisterPage = () => {
                 name="email"
                 type="email"
                 placeholder="example@gmail.com"
-                className={`w-full mt-3 p-3 border rounded-xl bg-gray-50 ${errors.email ? 'border-red-700' : ''} `}
+                className={`form-field ${errors.email ? 'border-red-700' : ''} `}
               />
               <ErrorMessage
                 name="email"
@@ -131,7 +131,7 @@ export const RegisterPage = () => {
                 name="password"
                 type="password"
                 placeholder="********"
-                className={`w-full mt-3 p-3 border rounded-xl bg-gray-50 ${errors.password ? 'border-red-700' : ''} `}
+                className={`form-field ${errors.password ? 'border-red-700' : ''} `}
               />
               <ErrorMessage
                 name="password"
@@ -156,7 +156,7 @@ export const RegisterPage = () => {
                 name="confirm_password"
                 type="password"
                 placeholder="********"
-                className={`w-full mt-3 mb-2 p-3 border rounded-xl bg-gray-50 ${errors.confirm_password ? 'border-red-700' : ''} `}
+                className={`form-field ${errors.confirm_password ? 'border-red-700' : ''} `}
               />
               <ErrorMessage
                 name="confirm_password"

@@ -1,10 +1,28 @@
+import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import * as Yup from 'yup';
 
 export const ForgotPasswordPage = () => {
+
+  const handleOnSubmit = (email: string) => {
+      console.log(email);
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      email: ''
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required')
+    }),
+    onSubmit: values => {
+      handleOnSubmit(values.email)
+    }
+  })
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Recover your password  and manage your <span className="text-slate-700">projects</span></h1>
-      <form className="my-10 bg-white shadow rounded-lg px-10 py-5">
+      <form onSubmit={formik.handleSubmit} className="my-10 bg-white shadow rounded-lg px-10 py-5">
         <div className="my-5">
           <label
             htmlFor="email"
@@ -21,14 +39,21 @@ export const ForgotPasswordPage = () => {
             id="email"
             type="email"
             placeholder="example@gmail.com"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+            className={`form-field  ${formik.errors.email ? 'border-red-700' : ''} `}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
           />
+          {formik.touched.email && formik.errors.email ? (
+            <div className="text-red-700">{formik.errors.email}</div>
+          ) : null}
         </div>
-        <input
-            type="submit"
-            value="Send instructions"
-            className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-          />
+        <button
+          type="submit"
+          className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
+        >
+          Send instruction
+          </button>
       </form>
       <nav className="lg:flex lg:justify-between">
         <Link
