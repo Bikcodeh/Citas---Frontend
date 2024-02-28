@@ -8,4 +8,5 @@ export interface RegisterFormData {
 export interface ApiResponse {
     msg: string;
     status?: string;
+    success?: boolean;
 }

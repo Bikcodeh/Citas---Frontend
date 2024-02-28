@@ -1,9 +1,11 @@
 import React from 'react';
-import { Spinner } from '@chakra-ui/react'
+import { Box, Spinner } from '@chakra-ui/react'
 
 const Loading: React.FC = () => {
     return (
-        <Spinner />
+        <Box display="flex" justifyContent="center" alignContent="center">
+            <Spinner />
+        </Box>
     )
 }
 
