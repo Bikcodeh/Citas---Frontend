@@ -13,9 +13,10 @@ interface AlertMessageProps {
     status: 'error' | 'success' | 'warning' | 'info';
     message: string;
     title: string;
+    dismissible?: boolean;
 }
 
-const AlertMessage: React.FC<AlertMessageProps> = ({ status, message, title }) => {
+const AlertMessage: React.FC<AlertMessageProps> = ({ status, message, title, dismissible = false}) => {
 
     const { onClose, isOpen: isVisible, } = useDisclosure({ defaultIsOpen: true });
 
@@ -26,13 +27,17 @@ const AlertMessage: React.FC<AlertMessageProps> = ({ status, message, title }) =
                 <AlertTitle>{title}</AlertTitle>
                 <AlertDescription>{message}</AlertDescription>
             </Box>
-            <CloseButton
-                alignSelf='flex-end'
-                position='relative'
-                right={-1}
-                top={-1}
-                onClick={onClose}
-            />
+            {
+                dismissible && (
+                    <CloseButton
+                        alignSelf='flex-end'
+                        position='relative'
+                        right={-1}
+                        top={-1}
+                        onClick={onClose}
+                    />
+                )
+            }
         </Alert>
     )
 }

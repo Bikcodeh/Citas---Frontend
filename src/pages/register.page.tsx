@@ -46,7 +46,7 @@ export const RegisterPage = () => {
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Sign up now and manage your <span className="text-slate-700">projects</span></h1>
       {
-        isError && (<AlertMessage status="error" message={getErrorMessage(error)} title="" />)
+        isError && (<AlertMessage dismissible={true} status="error" message={getErrorMessage(error)} title="" />)
       }
       {
         isSuccess && (<AlertMessage status="success" message={data.data.msg} title="" />)

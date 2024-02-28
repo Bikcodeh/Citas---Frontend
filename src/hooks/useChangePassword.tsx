@@ -1,23 +1,13 @@
-import { useQuery } from "react-query";
-import { uptaskApi } from "../api/uptaskApi"
-import { ApiResponse } from "../interfaces"
+import { useMutation } from "react-query";
+import { uptaskApi } from "../api/uptaskApi";
+import { ApiResponse } from "../interfaces";
 
-const changePassword = async (token: string) => {
-    const { data } = await uptaskApi.get<ApiResponse>(`auth/forgot-password/${token}`);
-    return data;
-}
-
-export const useChangePassword = (token: string)  => {
-
-    const changePasswordQuery = useQuery({
-        queryFn: () => changePassword(token),
-        queryKey: ['change-password'],
-        retryOnMount: false,
-        refetchOnWindowFocus: false,
-        enabled: token !== ''
-    });
+export const useChangePassword = () => {
+    const changePasswordMutation = useMutation((data: { token: string, password: string }) =>
+        uptaskApi.post<ApiResponse>(`auth/forgot-password/${data.token}`, { password: data.password })
+    );
 
     return {
-        changePasswordQuery
-    }
-}
+        changePasswordMutation
+    };
+};
