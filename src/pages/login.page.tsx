@@ -1,10 +1,55 @@
 import { Link } from "react-router-dom"
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Button } from '@chakra-ui/react'
+import AlertMessage from "../components/AlertMessage";
+import { getErrorMessage } from "../utils";
+import { useLogin } from "../hooks";
+
+type LoginFormData = {
+  email?: string;
+  password?: string;
+}
+
+const initialData: LoginFormData = {
+  email: '',
+  password: ''
+}
 
 export const LoginPage = () => {
+
+  const loginMutation = useLogin();
+  const { isError, isLoading, isSuccess, error, data } = loginMutation;
+
+  const formik = useFormik({
+    initialValues: initialData,
+    validationSchema: Yup.object({
+      email: Yup.string().email('Invalid email address').required('Required'),
+      password: Yup.string()
+        .required('Required')
+        .min(6, 'At least 6 characters')
+        .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+    }),
+    onSubmit: values => {
+      handleOnSubmit(values)
+    }
+  })
+
+  if (isSuccess) {
+    console.log(data);
+  }
+
+  const handleOnSubmit = (data: LoginFormData) => {
+    loginMutation.mutate({ email: data.email!, password: data.password! })
+  }
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Sign in and manage your <span className="text-slate-700">projects</span></h1>
-      <form className="my-10 bg-white shadow rounded-lg px-10 py-5">
+      {
+        isError && (<AlertMessage dismissible={true} status="error" message={getErrorMessage(error)} title="" />)
+      }
+
+      <form onSubmit={formik.handleSubmit} className="my-10 bg-white shadow rounded-lg px-10 py-5">
         <div className="my-5">
           <label
             htmlFor="email"
@@ -18,11 +63,18 @@ export const LoginPage = () => {
             Email
           </label>
           <input
+            name="email"
             id="email"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
             type="email"
             placeholder="example@gmail.com"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50"
+            className={`form-field  ${formik.errors.email ? 'border-red-700' : ''} `}
           />
+          {formik.touched.email && formik.errors.email ? (
+            <div className="text-red-700">{formik.errors.email}</div>
+          ) : null}
         </div>
         <div className="my-5">
           <label
@@ -37,17 +89,30 @@ export const LoginPage = () => {
             Password
           </label>
           <input
+            name="password"
             id="password"
             type="password"
             placeholder="********"
-            className="w-full mt-3 mb-8 p-3 border rounded-xl bg-gray-50"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+            className={`form-field  ${formik.errors.password ? 'border-red-700' : ''} `}
           />
-          <input
-            type="submit"
-            value="Sign in"
-            className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
-          />
+          {formik.touched.password && formik.errors.password ? (
+            <div className="text-red-700">{formik.errors.password}</div>
+          ) : null}
         </div>
+        <Button
+          isLoading={isLoading && formik.isSubmitting}
+          loadingText='Submitting'
+          variant='solid'
+          type="submit"
+          disabled={formik.isSubmitting}
+          colorScheme='blue'
+          fontWeight='bold'
+          className="w-full py-6 uppercase rounded hover:cursor-pointer transition-colors"
+        >Sign in
+        </Button>
       </form>
       <nav className="lg:flex lg:justify-between">
         <Link

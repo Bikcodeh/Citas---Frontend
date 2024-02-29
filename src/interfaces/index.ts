@@ -10,3 +10,10 @@ export interface ApiResponse {
     status?: string;
     success?: boolean;
 }
+
+export interface UserResponse {
+    _id: string;
+    name: string;
+    email: string;
+    token: string;
+}
