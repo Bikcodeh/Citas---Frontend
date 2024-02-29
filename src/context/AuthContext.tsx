@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ProfileResponse, UserResponse } from "../interfaces";
-import { useCheckLogin } from "../hooks";
 import { uptaskApi } from "../api/uptaskApi";
 
 interface Props {
