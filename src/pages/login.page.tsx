@@ -4,7 +4,8 @@ import * as Yup from 'yup';
 import { Button } from '@chakra-ui/react'
 import AlertMessage from "../components/AlertMessage";
 import { getErrorMessage } from "../utils";
-import { useLogin } from "../hooks";
+import { useAuth, useLogin } from "../hooks";
+import { useEffect } from "react";
 
 type LoginFormData = {
   email?: string;
@@ -19,6 +20,7 @@ const initialData: LoginFormData = {
 export const LoginPage = () => {
 
   const loginMutation = useLogin();
+  const { setUser } = useAuth();
   const { isError, isLoading, isSuccess, error, data } = loginMutation;
 
   const formik = useFormik({
@@ -35,9 +37,12 @@ export const LoginPage = () => {
     }
   })
 
-  if (isSuccess) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.setItem('token', data.data.token)
+      setUser(data.data)
+    }
+  }, [isSuccess])
 
   const handleOnSubmit = (data: LoginFormData) => {
     loginMutation.mutate({ email: data.email!, password: data.password! })
