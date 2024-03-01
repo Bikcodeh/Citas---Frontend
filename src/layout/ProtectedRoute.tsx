@@ -16,7 +16,7 @@ export const ProtectedRoute = () => {
             <Header />
             <div className="md:flex md:min-h-screen">
               <Sidebar />
-              <main>
+              <main className="flex flex-1 mx-4 pt-4">
                 <Outlet />
               </main>
             </div>

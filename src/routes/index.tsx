@@ -5,6 +5,7 @@ import {
     ForgotPasswordPage,
     LoginPage,
     NewPasswordPage,
+    NewProject,
     Projects,
     RegisterPage
 } from '../pages';
@@ -25,6 +26,7 @@ export const AppRoutes = () => {
                     </Route>
                     <Route path='/projects' element={<ProtectedRoute />}>
                         <Route index element={<Projects />} />
+                        <Route path='create-project' element={<NewProject />} />
                     </Route>
                 </Routes>
             </AuthProvider>
