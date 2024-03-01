@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthLayout } from '../layout';
+import { AuthLayout, ProtectedRoute } from '../layout';
 import {
     ConfirmAccountPage,
     ForgotPasswordPage,
     LoginPage,
     NewPasswordPage,
+    Projects,
     RegisterPage
 } from '../pages';
 import { AuthProvider } from '../context/AuthContext';
@@ -21,6 +22,9 @@ export const AppRoutes = () => {
                         <Route path='forgot-password' element={<NewPasswordPage />} />
                         <Route path='forgot-password/:token' element={<NewPasswordPage />} />
                         <Route path='confirm/:id' element={<ConfirmAccountPage />} />
+                    </Route>
+                    <Route path='/projects' element={<ProtectedRoute />}>
+                        <Route index element={<Projects />} />
                     </Route>
                 </Routes>
             </AuthProvider>
