@@ -2,6 +2,8 @@ import { Outlet, Navigate } from "react-router-dom"
 import { useAuth } from "../hooks"
 import Loading from "../components/Loading";
 import { Header, Sidebar } from "../components";
+import { DrawerSide } from "../components/DrawerSide";
+import { Box } from "@chakra-ui/react";
 
 
 export const ProtectedRoute = () => {
@@ -14,9 +16,10 @@ export const ProtectedRoute = () => {
         user?._id ? (
           <div className="bg-gray-100">
             <Header />
-            <div className="md:flex md:min-h-screen">
+            <div className="lg:flex">
+              <DrawerSide />
               <Sidebar />
-              <main className="flex flex-1 mx-4 pt-4">
+              <main className="flex flex-1 mx-4">
                 <Outlet />
               </main>
             </div>

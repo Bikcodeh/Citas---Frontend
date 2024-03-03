@@ -5,8 +5,8 @@ import { useAuth } from "../hooks"
 export const Sidebar = () => {
   const { user } = useAuth()
   return (
-    <aside className="flex mx-5 flex-col md:w-80 lg:w-96 py-10">
-      <p className="text-xl font-bold">Hola {user?.name}</p>
+    <aside className="lg:block hidden mx-5 flex-col md:w-80 lg:w-96 py-10">
+      <p className="text-xl font-bold">Hi {user?.name}</p>
       <Link to="create-project" >
         <Button
           variant='solid'
