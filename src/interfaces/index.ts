@@ -22,3 +22,11 @@ export interface ProfileResponse {
     success: boolean;
     user: UserResponse;
 }
+
+export interface Project {
+    _id?: string;
+    name: string;
+    description: string;
+    deadline: Date;
+    client: string;
+}

@@ -1,8 +1,12 @@
+import Loading from "../components/Loading";
 import { useProjects } from "../hooks"
 
 export const Projects = () => {
-  const data = useProjects()
+
+  const { projects, isLoadingProjects } = useProjects();
+  
+  if (isLoadingProjects) return (<Loading />)
   return (
-    <div>Projects</div>
+    <div>{JSON.stringify(projects)}</div>
   )
 }
