@@ -3,7 +3,6 @@ import { useAuth } from "../hooks"
 import Loading from "../components/Loading";
 import { Header, Sidebar } from "../components";
 import { DrawerSide } from "../components/DrawerSide";
-import { Box } from "@chakra-ui/react";
 
 
 export const ProtectedRoute = () => {
