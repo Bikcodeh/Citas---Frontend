@@ -40,7 +40,6 @@ const formSchema = Yup.object().shape({
 
 
 export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, error, isSuccess }) => {
-
     const formik = useFormik({
         initialValues: initialData,
         validationSchema: formSchema,
@@ -50,7 +49,9 @@ export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, err
     })
 
     useEffect(() => {
-        if (isSuccess) formik.resetForm()
+        if (isSuccess) {
+            formik.resetForm()
+        }
     }, [isSuccess])
 
 

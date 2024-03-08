@@ -12,13 +12,15 @@ export type ProjectContextType = {
     projects: Project[];
     isLoadingProjects: boolean;
     errorProjects?: any;
+    setProjects: Dispatch<SetStateAction<Project[]>>;
 }
 
 export const ProjectContext = createContext<ProjectContextType>({
     drawerOpen: false,
     setDrawerOpen: () => { },
     projects: [],
-    isLoadingProjects: true
+    isLoadingProjects: true,
+    setProjects: () => {}
 });
 
 export const ProjectProvider: React.FC<Props> = ({ children }) => {
@@ -37,7 +39,8 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
             errorProjects: error,
             projects,
             drawerOpen,
-            setDrawerOpen
+            setDrawerOpen,
+            setProjects
         }}>
             {children}
         </ProjectContext.Provider>

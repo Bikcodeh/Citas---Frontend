@@ -13,7 +13,7 @@ export const Projects = () => {
       <div className="flex flex-col flex-1 bg-white shadow mt-10 rounded">
         {
           projects.length ? 
-          projects.map(project => (<PreviewProject key={project.name} project={project} />)) : 
+          projects.map(project => (<PreviewProject key={project._id} project={project} />)) : 
           <p className="text-center w-full text-gray-600 uppercase">No Projects yet</p>
         }
       </div>
