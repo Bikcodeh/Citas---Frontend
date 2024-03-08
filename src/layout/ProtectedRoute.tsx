@@ -18,7 +18,7 @@ export const ProtectedRoute = () => {
             <div className="lg:flex">
               <DrawerSide />
               <Sidebar />
-              <main className="flex flex-1 mx-4">
+              <main className="flex flex-1 mx-4 mt-5">
                 <Outlet />
               </main>
             </div>

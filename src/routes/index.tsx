@@ -6,6 +6,7 @@ import {
     LoginPage,
     NewPasswordPage,
     NewProject,
+    Project,
     Projects,
     RegisterPage
 } from '../pages';
@@ -29,6 +30,7 @@ export const AppRoutes = () => {
                         <Route path='/projects' element={<ProtectedRoute />}>
                             <Route index element={<Projects />} />
                             <Route path='create-project' element={<NewProject />} />
+                            <Route path=':id' element={<Project />} />
                         </Route>
                     </Routes>
                 </ProjectProvider>

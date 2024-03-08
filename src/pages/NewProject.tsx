@@ -11,7 +11,7 @@ export const NewProject = () => {
     }
   }))
 
-  const {isLoading, isError, isSuccess, data, error } = createProjectMutation;
+  const {isLoading, isError, isSuccess, error } = createProjectMutation;
   return (
     <>
       <h1 className="text-4xl mt-10 font-black absolute">New Project</h1>
