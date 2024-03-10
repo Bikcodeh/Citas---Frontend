@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { uptaskApi } from "../api/uptaskApi";
+import uptaskApi from "../api/uptaskApi";
 import { ApiResponse } from "../interfaces";
 
 export const confirmAccount = async (token: string): Promise<ApiResponse> => {

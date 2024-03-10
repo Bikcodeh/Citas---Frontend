@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { uptaskApi } from "../api/uptaskApi";
+import uptaskApi from "../api/uptaskApi";
 import { ApiResponse } from "../interfaces";
 
 export const useChangePassword = () => {

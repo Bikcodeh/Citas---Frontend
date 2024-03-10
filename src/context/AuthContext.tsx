@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { createContext } from "react";
 import { ProfileResponse, UserResponse } from "../interfaces";
-import { uptaskApi } from "../api/uptaskApi";
+import uptaskApi from "../api/uptaskApi";
 import { useNavigate } from "react-router-dom";
 
 interface Props {

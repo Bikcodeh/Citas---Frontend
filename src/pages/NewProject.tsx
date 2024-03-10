@@ -1,17 +1,12 @@
 import { useMutation } from "react-query"
 import { DataFormProject, ProjectForm } from "../components"
-import { uptaskApi } from "../api/uptaskApi"
+import uptaskApi from "../api/uptaskApi"
 import { Project } from "../interfaces"
 import { useProjects } from "../hooks"
 import { useEffect } from "react"
 
 export const NewProject = () => {
-  const createProjectMutation = useMutation((data: DataFormProject) => uptaskApi.post<Project>('project', {...data}, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    }
-  }))
+  const createProjectMutation = useMutation((data: DataFormProject) => uptaskApi.post<Project>('project', {...data}))
 
   const {isLoading, isError, isSuccess, error, data } = createProjectMutation;
   const { projects, setProjects } = useProjects()
