@@ -1,16 +1,26 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Loading from "../components/Loading"
 import { useGetSingleProject } from "../hooks/useGetSingleProject";
 
 export const SingleProject = () => {
 
   const { id = '' } = useParams();
-  const { singleProjectQuery  } = useGetSingleProject(id)
-  const { isLoading, isSuccess, isError, error, data } = singleProjectQuery;
+  const { singleProjectQuery } = useGetSingleProject(id)
+  const { isLoading, isFetching, isSuccess, isError, error, data } = singleProjectQuery;
+  if (!data) return;
+  const { name } = data;
 
-  if (isLoading) return (<div className="flex flex-1 justify-center"><Loading /></div>)
+  if (isLoading || isFetching) return (<div className="flex flex-1 justify-center"><Loading /></div>)
 
   return (
-    <div>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</div>
+    <div className="flex w-full flex-row justify-between p-5">
+      <h1 className="font-black text-4xl">{name}</h1>
+      <div className="flex flex-col items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+        </svg>
+        <Link to={`/projects/edit/${id}`}>Edit</Link>
+      </div>
+    </div>
   )
 }

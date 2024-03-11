@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@chakra-ui/react'
@@ -21,6 +21,8 @@ export const LoginPage = () => {
 
   const loginMutation = useLogin();
   const { setUser } = useAuth();
+  const navigate = useNavigate();
+
   const { isError, isLoading, isSuccess, error, data } = loginMutation;
 
   const formik = useFormik({
@@ -41,6 +43,7 @@ export const LoginPage = () => {
     if (isSuccess) {
       localStorage.setItem('token', data.data.token)
       setUser(data.data)
+      navigate('/projects')
     }
   }, [isSuccess])
 

@@ -6,3 +6,4 @@ export * from './confirm-account.page';
 export * from './Projects';
 export * from './NewProject';
 export * from './SingleProject';
+export * from './EditProject';

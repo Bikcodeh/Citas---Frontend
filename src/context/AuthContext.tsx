@@ -12,12 +12,14 @@ export type AuthContextType = {
     user?: UserResponse;
     loading: boolean;
     setUser: Dispatch<SetStateAction<UserResponse | undefined>>;
+    doLogout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType>({
     user: undefined,
     loading: false,
-    setUser: () => { }
+    setUser: () => { },
+    doLogout: () => {}
 });
 
 export const AuthProvider = ({ children }: Props) => {
@@ -42,7 +44,6 @@ export const AuthProvider = ({ children }: Props) => {
                 }
             })
             setUser(data.user)
-            navigate('/projects');
         } catch (error) {
             console.log('Error Auth')
         }
@@ -54,8 +55,14 @@ export const AuthProvider = ({ children }: Props) => {
     }, [])
 
 
+    const doLogout = () => {
+        setUser(undefined);
+        localStorage.removeItem('token');
+        navigate('/')
+    }
+
     return (
-        <AuthContext.Provider value={{ user, setUser, loading }}>
+        <AuthContext.Provider value={{ user, setUser, loading, doLogout }}>
             {children}
         </AuthContext.Provider>
     )

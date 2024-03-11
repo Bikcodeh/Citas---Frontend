@@ -8,7 +8,8 @@ import {
     NewProject,
     SingleProject,
     Projects,
-    RegisterPage
+    RegisterPage,
+    EditProject
 } from '../pages';
 import { AuthProvider } from '../context/AuthContext';
 import { ProjectProvider } from '../context/ProjectContext';
@@ -27,10 +28,11 @@ export const AppRoutes = () => {
                             <Route path='forgot-password/:token' element={<NewPasswordPage />} />
                             <Route path='confirm/:id' element={<ConfirmAccountPage />} />
                         </Route>
-                        <Route path='/projects' element={<ProtectedRoute />}>
+                        <Route path='projects' element={<ProtectedRoute />}>
                             <Route index element={<Projects />} />
                             <Route path='create-project' element={<NewProject />} />
                             <Route path=':id' element={<SingleProject />} />
+                            <Route path='edit/:id' element={<EditProject />} />
                         </Route>
                     </Routes>
                 </ProjectProvider>

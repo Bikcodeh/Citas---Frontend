@@ -10,7 +10,8 @@ const getProjects = async () => {
 export const useGetProjects = () => {
     const getProjectsQuery = useQuery({
         queryKey: ['getProjects'],
-        queryFn: () => getProjects()
+        queryFn: () => getProjects(),
+        enabled: !!localStorage.getItem('token')
     })
 
     return {

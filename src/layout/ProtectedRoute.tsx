@@ -4,8 +4,7 @@ import Loading from "../components/Loading";
 import { Header, Sidebar } from "../components";
 import { DrawerSide } from "../components/DrawerSide";
 
-
-export const ProtectedRoute = () => {
+export const ProtectedRoute: React.FC = () => {
   const { user, loading } = useAuth();
 
   if (loading) return (<Loading full={true} />)
@@ -18,7 +17,7 @@ export const ProtectedRoute = () => {
             <div className="flex flex-1 ">
               <DrawerSide />
               <Sidebar />
-              <main className="flex flex-1 mx-4 mt-5">
+              <main className="flex w-full mx-4 mt-5">
                 <Outlet />
               </main>
             </div>

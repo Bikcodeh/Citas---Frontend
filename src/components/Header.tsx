@@ -1,10 +1,11 @@
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { Input, Button, IconButton } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
-import { useProjects } from '../hooks'
+import { useAuth, useProjects } from '../hooks'
 
 export const Header = () => {
   const {drawerOpen, setDrawerOpen} = useProjects()
+  const { doLogout } = useAuth()
   return (
     <header className=" bg-white border-b py-4">
       <div className="flex flex-col lg:flex-row lg:justify-between items-center mx-4">
@@ -16,7 +17,7 @@ export const Header = () => {
         <div className='flex flex-col lg:flex-row items-center gap-4'>
           <Link to="/projects"
             className='font-bold uppercase'>Projects</Link>
-          <Button colorScheme='blue'>Logout</Button>
+          <Button  onClick={() => doLogout()} colorScheme='blue'>Logout</Button>
         </div>
 
       </div>

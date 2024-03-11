@@ -2,8 +2,9 @@ import { FormControl, FormLabel, Input, FormErrorMessage, Button, Textarea } fro
 import { useFormik } from "formik"
 import * as Yup from 'yup';
 import AlertMessage from "./AlertMessage";
-import { getErrorMessage } from "../utils";
+import { formatDate, getErrorMessage } from "../utils";
 import { useEffect } from "react";
+import { Project } from "../interfaces";
 
 export type DataFormProject = {
     name: string;
@@ -12,17 +13,12 @@ export type DataFormProject = {
     client: string;
 }
 
-const initialData: DataFormProject = {
-    name: '',
-    description: '',
-    date: '',
-    client: ''
-}
-
 interface Props {
+    project?: Project;
     isLoading: boolean;
     isSuccess: boolean;
     isError: boolean;
+    isEditing?: boolean;
     error: any;
     onSubmit: (data: DataFormProject) => void;
 }
@@ -39,7 +35,15 @@ const formSchema = Yup.object().shape({
 });
 
 
-export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, error, isSuccess }) => {
+export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, error, isSuccess, isEditing = false, project }) => {
+
+    const initialData: DataFormProject = {
+        name:'wwww' || '',
+        description: project?.description || '',
+        date: '12/01/2024',
+        client: project?.client || ''
+    }
+
     const formik = useFormik({
         initialValues: initialData,
         validationSchema: formSchema,
@@ -56,12 +60,12 @@ export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, err
 
 
     return (
-        <div className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow">
+        <div className="bg-white py-10 px-5 md:w-1/2 h-min rounded-lg shadow">
             {
                 isError && (<AlertMessage dismissible={true} status="error" message={getErrorMessage(error)} title="" />)
             }
             {
-                isSuccess && (<AlertMessage status="success" message='Project created' title="" />)
+                isSuccess && (<AlertMessage status="success" message={`Project ${isEditing ? 'Updated' : 'Created'}`} title="" />)
             }
             <form onSubmit={formik.handleSubmit}>
                 <FormControl isInvalid={!!formik.errors.name} className="py-2">
@@ -76,7 +80,7 @@ export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, err
                 </FormControl>
                 <FormControl isInvalid={!!formik.errors.date} className="py-4">
                     <FormLabel>Due Date</FormLabel>
-                    <Input value={formik.values.date} id="date" type="date" onChange={formik.handleChange} name="date" placeholder='Date' />
+                    <Input value={formik.values.date} id="date" type="date"  onChange={(e) => formik.setFieldValue('date', e.target.value)} name="date" placeholder='Date' />
                     <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!formik.errors.client} className="mb-10">
@@ -93,7 +97,7 @@ export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, err
                     colorScheme='blue'
                     fontWeight='bold'
                     className="w-full py-6 uppercase rounded hover:cursor-pointer transition-colors"
-                >Create
+                >{isEditing ? 'Update' : 'Create'}
                 </Button>
             </form>
         </div>

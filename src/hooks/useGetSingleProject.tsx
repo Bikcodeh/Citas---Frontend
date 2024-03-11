@@ -9,7 +9,8 @@ const getSingleProject = async (id: string) => {
 export const useGetSingleProject = (id: string) => {
     const singleProjectQuery = useQuery({
         queryKey: ['get-single-project'],
-        queryFn: () => getSingleProject(id)
+        queryFn: () => getSingleProject(id),
+        refetchOnWindowFocus: false
     })
 
     return {
