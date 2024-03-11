@@ -6,7 +6,7 @@ export const Projects = () => {
 
   const { projects, isLoadingProjects } = useProjects();  
 
-  if (isLoadingProjects) return (<Loading />)
+  if (isLoadingProjects) return (<div className="flex flex-1 justify-center"><Loading /></div>)
   return (
     <div className="flex flex-1 flex-col">
       <h1 className="text-4xl font-black">Projects</h1>

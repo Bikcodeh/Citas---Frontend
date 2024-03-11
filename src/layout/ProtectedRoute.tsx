@@ -13,9 +13,9 @@ export const ProtectedRoute = () => {
     <>
       {
         user?._id ? (
-          <div className="bg-gray-100">
+          <div className="bg-gray-100 h-screen flex flex-col">
             <Header />
-            <div className="lg:flex">
+            <div className="flex flex-1 ">
               <DrawerSide />
               <Sidebar />
               <main className="flex flex-1 mx-4 mt-5">
