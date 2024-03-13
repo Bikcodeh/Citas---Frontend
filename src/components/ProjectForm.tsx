@@ -38,9 +38,9 @@ const formSchema = Yup.object().shape({
 export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, error, isSuccess, isEditing = false, project }) => {
 
     const initialData: DataFormProject = {
-        name:'wwww' || '',
+        name: project?.name || '',
         description: project?.description || '',
-        date: '12/01/2024',
+        date: formatDate(project?.deadline) || '',
         client: project?.client || ''
     }
 
@@ -80,7 +80,7 @@ export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, err
                 </FormControl>
                 <FormControl isInvalid={!!formik.errors.date} className="py-4">
                     <FormLabel>Due Date</FormLabel>
-                    <Input value={formik.values.date} id="date" type="date"  onChange={(e) => formik.setFieldValue('date', e.target.value)} name="date" placeholder='Date' />
+                    <Input value={formik.values.date} id="date" type="date"  onChange={(e) => formik.setFieldValue('date', e.target.value)} name="date" />
                     <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!formik.errors.client} className="mb-10">

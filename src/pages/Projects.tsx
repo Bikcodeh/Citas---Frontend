@@ -8,15 +8,15 @@ export const Projects = () => {
 
   if (isLoadingProjects) return (<div className="flex flex-1 justify-center"><Loading /></div>)
   return (
-    <div className="flex flex-1 flex-col">
+    <>
       <h1 className="text-4xl font-black">Projects</h1>
-      <div className="flex flex-col flex-1 bg-white shadow mt-10 rounded">
+      <div className="w-full h-min bg-white shadow mt-10 rounded">
         {
           projects.length ? 
           projects.map(project => (<PreviewProject key={project._id} project={project} />)) : 
-          <p className="text-center w-full text-gray-600 uppercase">No Projects yet</p>
+          <p className="text-center p-10 w-full text-gray-600 uppercase">No Projects yet</p>
         }
       </div>
-    </div>
+    </>
   )
 }
