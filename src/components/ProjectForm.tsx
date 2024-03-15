@@ -36,7 +36,6 @@ const formSchema = Yup.object().shape({
 
 
 export const ProjectForm: React.FC<Props> = ({ onSubmit, isLoading, isError, error, isSuccess, isEditing = false, project }) => {
-
     const initialData: DataFormProject = {
         name: project?.name || '',
         description: project?.description || '',
