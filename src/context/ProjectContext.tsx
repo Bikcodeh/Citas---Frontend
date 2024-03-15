@@ -13,6 +13,7 @@ export type ProjectContextType = {
     isLoadingProjects: boolean;
     errorProjects?: any;
     setProjects: Dispatch<SetStateAction<Project[]>>;
+    deleteProject: (id: string) => void;
 }
 
 export const ProjectContext = createContext<ProjectContextType>({
@@ -20,7 +21,8 @@ export const ProjectContext = createContext<ProjectContextType>({
     setDrawerOpen: () => { },
     projects: [],
     isLoadingProjects: true,
-    setProjects: () => {}
+    setProjects: () => { },
+    deleteProject: () => {}
 });
 
 export const ProjectProvider: React.FC<Props> = ({ children }) => {
@@ -28,6 +30,10 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
     const { isError, isLoading, data, error } = getProjectsQuery;
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [projects, setProjects] = useState<Project[]>([]);
+
+    const deleteProject = (id: string) => {
+        setProjects(projects.filter(p => p._id !== id))
+    }
 
     useEffect(() => {
         setProjects(data || []);
@@ -40,7 +46,8 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
             projects,
             drawerOpen,
             setDrawerOpen,
-            setProjects
+            setProjects,
+            deleteProject
         }}>
             {children}
         </ProjectContext.Provider>
