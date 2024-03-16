@@ -12,7 +12,7 @@ export const Projects = () => {
       <h1 className="text-4xl font-black">Projects</h1>
       <div className="w-full h-min bg-white shadow mt-10 rounded">
         {
-          projects.length ? 
+          projects.length > 0 ? 
           projects.map(project => (<PreviewProject key={project._id} project={project} />)) : 
           <p className="text-center p-10 w-full text-gray-600 uppercase">No Projects yet</p>
         }

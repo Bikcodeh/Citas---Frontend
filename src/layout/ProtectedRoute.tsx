@@ -17,7 +17,7 @@ export const ProtectedRoute: React.FC = () => {
             <div className="flex flex-1 ">
               <DrawerSide />
               <Sidebar />
-              <main className="flex w-full mx-4 mt-5 my-10">
+              <main className="w-full mx-4 mt-5 my-10">
                 <Outlet />
               </main>
             </div>

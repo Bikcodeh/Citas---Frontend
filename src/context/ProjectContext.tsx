@@ -27,7 +27,7 @@ export const ProjectContext = createContext<ProjectContextType>({
 
 export const ProjectProvider: React.FC<Props> = ({ children }) => {
     const { getProjectsQuery } = useGetProjects();
-    const { isError, isLoading, data, error } = getProjectsQuery;
+    const { isError, isFetching, data, error } = getProjectsQuery;
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [projects, setProjects] = useState<Project[]>([]);
 
@@ -41,7 +41,7 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
 
     return (
         <ProjectContext.Provider value={{
-            isLoadingProjects: isLoading,
+            isLoadingProjects: isFetching,
             errorProjects: error,
             projects,
             drawerOpen,

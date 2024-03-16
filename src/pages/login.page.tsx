@@ -6,6 +6,7 @@ import AlertMessage from "../components/AlertMessage";
 import { getErrorMessage } from "../utils";
 import { useAuth, useLogin } from "../hooks";
 import { useEffect } from "react";
+import Loading from "../components/Loading";
 
 type LoginFormData = {
   email?: string;
@@ -20,7 +21,7 @@ const initialData: LoginFormData = {
 export const LoginPage = () => {
 
   const loginMutation = useLogin();
-  const { setUser } = useAuth();
+  const { setUser, user, loading } = useAuth();
   const navigate = useNavigate();
 
   const { isError, isLoading, isSuccess, error, data } = loginMutation;
@@ -47,9 +48,19 @@ export const LoginPage = () => {
     }
   }, [isSuccess])
 
+  useEffect(() => {
+    if (user) {
+      navigate('/projects')
+    }
+  }, [user])
+
+
   const handleOnSubmit = (data: LoginFormData) => {
     loginMutation.mutate({ email: data.email!, password: data.password! })
   }
+
+  if (loading) return (<div className="flex flex-1 justify-center"><Loading /></div>)
+
   return (
     <>
       <h1 className="text-sky-600 font-black text-6xl capitalize">Sign in and manage your <span className="text-slate-700">projects</span></h1>

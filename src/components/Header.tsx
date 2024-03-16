@@ -15,7 +15,7 @@ export const Header = () => {
           <Input placeholder='Search projects' />
         </div>
         <div className='flex flex-col lg:flex-row items-center gap-4'>
-          <Link to="/projects"
+          <Link to="/projects" replace
             className='font-bold uppercase'>Projects</Link>
           <Button  onClick={() => doLogout()} colorScheme='blue'>Logout</Button>
         </div>

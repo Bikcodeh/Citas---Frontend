@@ -14,31 +14,34 @@ interface AlertMessageProps {
     message: string;
     title: string;
     dismissible?: boolean;
+    className?: string;
 }
 
-const AlertMessage: React.FC<AlertMessageProps> = ({ status, message, title, dismissible = false}) => {
+const AlertMessage: React.FC<AlertMessageProps> = ({ status, message, title, dismissible = false, className ='w-full' }) => {
 
     const { onClose, isOpen: isVisible, } = useDisclosure({ defaultIsOpen: true });
 
     return isVisible && (
-        <Alert status={status} className='my-8 w-full' justifyContent="space-between">
-            <Box className='w-full' display="flex">
-                <AlertIcon />
-                <AlertTitle>{title}</AlertTitle>
-                <AlertDescription>{message}</AlertDescription>
-            </Box>
-            {
-                dismissible && (
-                    <CloseButton
-                        alignSelf='flex-end'
-                        position='relative'
-                        right={-1}
-                        top={-1}
-                        onClick={onClose}
-                    />
-                )
-            }
-        </Alert>
+        <div className={className}>
+            <Alert status={status} justifyContent="space-between" as="div">
+                <Box display="flex">
+                    <AlertIcon />
+                    <AlertTitle>{title}</AlertTitle>
+                    <AlertDescription>{message}</AlertDescription>
+                </Box>
+                {
+                    dismissible && (
+                        <CloseButton
+                            alignSelf='flex-end'
+                            position='relative'
+                            right={-1}
+                            top={-1}
+                            onClick={onClose}
+                        />
+                    )
+                }
+            </Alert>
+        </div>
     )
 }
 
