@@ -9,9 +9,12 @@ const getProjects = async () => {
 
 export const useGetProjects = () => {
     const getProjectsQuery = useQuery({
-        queryKey: ['getProjects'],
+        queryKey: ['get-all-projects'],
         queryFn: () => getProjects(),
-        enabled: !!localStorage.getItem('token')
+        enabled: !!localStorage.getItem('token'),
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        retryOnMount: false
     })
 
     return {

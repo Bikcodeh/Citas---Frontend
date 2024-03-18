@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction, createContext, useEffect, useState } from "react";
 import { Project } from "../interfaces";
 import { useGetProjects } from "../hooks/useGetProject";
+import { useAuth } from "../hooks";
 
 interface Props {
     children: React.ReactNode;
@@ -8,10 +9,11 @@ interface Props {
 
 export type ProjectContextType = {
     drawerOpen: boolean;
-    setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-    projects: Project[];
     isLoadingProjects: boolean;
+    projects: Project[];
     errorProjects?: any;
+    isError: boolean;
+    setDrawerOpen: Dispatch<SetStateAction<boolean>>;
     setProjects: Dispatch<SetStateAction<Project[]>>;
     deleteProject: (id: string) => void;
 }
@@ -20,12 +22,14 @@ export const ProjectContext = createContext<ProjectContextType>({
     drawerOpen: false,
     setDrawerOpen: () => { },
     projects: [],
+    isError: false,
     isLoadingProjects: true,
     setProjects: () => { },
-    deleteProject: () => {}
+    deleteProject: () => { }
 });
 
 export const ProjectProvider: React.FC<Props> = ({ children }) => {
+    const { user } = useAuth();
     const { getProjectsQuery } = useGetProjects();
     const { isError, isFetching, data, error } = getProjectsQuery;
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -36,8 +40,16 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
     }
 
     useEffect(() => {
-        setProjects(data || []);
+        setProjects(data || [])
     }, [data])
+
+    useEffect(() => {
+     if (user) {
+        getProjectsQuery.refetch()
+     }
+    }, [user])
+    
+    
 
     return (
         <ProjectContext.Provider value={{
@@ -45,6 +57,7 @@ export const ProjectProvider: React.FC<Props> = ({ children }) => {
             errorProjects: error,
             projects,
             drawerOpen,
+            isError,
             setDrawerOpen,
             setProjects,
             deleteProject
